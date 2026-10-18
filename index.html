@@ -305,12 +305,27 @@ footer{padding-block:28px;color:var(--ink-2);font-size:14px;text-align:center}
   gtag('config', 'AW-10798454699');
   // Llamadas desde el sitio web: Google reemplaza el número por uno de desvío y cuenta la llamada
   gtag('config', 'AW-10798454699/G6SpCOzFsaEdEKuvjZ0o', { 'phone_conversion_number': '786-973-5856' });
-  // Clic en WhatsApp
+  // Métricas propias (panel privado) + conversión de Google Ads
+  var miaHit=(function(){
+    var noa=false, vid="";
+    try{ noa=localStorage.getItem("mia_noa")==="1"; vid=localStorage.getItem("mia_vid")||""; if(!vid){ vid=Math.random().toString(36).slice(2,12); localStorage.setItem("mia_vid",vid); } }catch(e){}
+    var isM=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    return function(t){
+      if(noa || navigator.webdriver) return;
+      try{
+        var body=JSON.stringify({t:t,v:vid,d:isM?"m":"d",r:document.referrer||"",q:location.search||"",l:(document.documentElement.getAttribute("data-lang")||"es")});
+        if(navigator.sendBeacon){ navigator.sendBeacon("/api/hit",new Blob([body],{type:"text/plain"})); }
+        else { fetch("/api/hit",{method:"POST",body:body,keepalive:true,headers:{"content-type":"text/plain"}}); }
+      }catch(e){}
+    };
+  })();
   function miaTrack(kind){
     try{
-      if(kind==='wa'){ gtag('event','conversion',{ 'send_to':'AW-10798454699/3ZTSCO_FsaEdEKuvjZ0o' }); }
+      if(kind==='wa'||kind==='form'){ gtag('event','conversion',{ 'send_to':'AW-10798454699/3ZTSCO_FsaEdEKuvjZ0o' }); }
     }catch(e){}
+    miaHit(kind);
   }
+  if(location.hostname!=="localhost" && location.protocol!=="file:"){ miaHit("pv"); }
 </script>
 
 <header class="top">
@@ -833,7 +848,7 @@ footer{padding-block:28px;color:var(--ink-2);font-size:14px;text-align:center}
       var btn=document.getElementById("lead-submit"); btn.disabled=true;
       var data=new URLSearchParams(new FormData(lf)).toString();
       var done=function(){
-        try{ miaTrack("wa"); }catch(e){}
+        try{ miaTrack("form"); }catch(e){}
         var ok=document.getElementById("lead-ok"); ok.style.display="block"; document.getElementById("lead-wa-link").href=wa;
         var w=window.open(wa,"_blank"); if(!w){ location.href=wa; }
         btn.disabled=false;

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Panel · MIA Auto Rental</title>
+<link rel="icon" href="/img/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#f7f4ee;--card:#fff;--ink:#1b1f26;--ink-2:#4b5260;--line:#e4ddd1;--accent:#e8601c;--wa:#1f9d55;--call:#e8601c;--form:#3b5bdb;--pv:#1b1f26;--uv:#8a94a6;--dark:#171a20}
+*{box-sizing:border-box;margin:0}
+body{font-family:"Barlow",system-ui,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+h1,h2,h3,.num{font-family:"Barlow Condensed","Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.02em}
+.top{background:var(--dark);color:#f3efe8;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.top img{height:36px}
+.top .t{font-family:"Barlow Condensed";font-weight:700;font-size:20px;letter-spacing:.04em;text-transform:uppercase}
+.top button{background:transparent;color:#a7adb8;border:1px solid #3a404c;border-radius:8px;padding:6px 10px;font:inherit;font-size:13px;cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding:18px 16px 60px}
+.gate{max-width:380px;margin:80px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px;text-align:center}
+.gate h1{font-size:30px}
+.gate p{color:var(--ink-2);margin-top:6px;font-size:15px}
+.gate input{width:100%;margin-top:18px;font:inherit;font-size:22px;letter-spacing:.3em;text-align:center;padding:12px;border:1.5px solid var(--line);border-radius:10px}
+.gate button{width:100%;margin-top:12px;background:var(--accent);color:#fff;border:0;border-radius:10px;padding:13px;font-family:"Barlow Condensed";font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.06em;cursor:pointer}
+.gate .err{color:#c0392b;margin-top:10px;font-size:14px;display:none}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.toolbar button,.toolbar select{font:inherit;font-size:14px;font-weight:600;padding:8px 12px;border:1.5px solid var(--line);background:#fff;border-radius:999px;cursor:pointer;color:var(--ink)}
+.toolbar button[aria-pressed="true"]{background:var(--dark);color:#fff;border-color:var(--dark)}
+.toolbar input[type=date]{font:inherit;font-size:14px;padding:7px 10px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.toolbar .sep{flex:1}
+.range{color:var(--ink-2);font-size:14px;margin:-6px 0 14px}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:720px){.kpis{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1000px){.kpis{grid-template-columns:repeat(6,1fr)}}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;border-top:4px solid var(--c,var(--line))}
+.kpi .lab{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2)}
+.kpi .num{font-size:38px;font-weight:800;line-height:1.05;margin-top:6px}
+.kpi .sub{font-size:13px;color:var(--ink-2);margin-top:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:14px}
+.card h2{font-size:22px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.card h2 small{font-family:"Barlow";font-weight:500;text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink-2)}
+.grid2{display:grid;gap:14px}
+@media(min-width:860px){.grid2{grid-template-columns:1fr 1fr}}
+.chart{position:relative;height:300px}
+.chart.small{height:220px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.bar{height:8px;background:var(--accent);border-radius:4px;display:inline-block;vertical-align:middle;margin-right:8px}
+.empty{color:var(--ink-2);text-align:center;padding:30px 10px;font-size:15px}
+.note{font-size:13px;color:var(--ink-2);margin-top:14px;line-height:1.5}
+.spin{opacity:.5;pointer-events:none}
+.badge{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;background:#fdeadf;color:#9a3d0c;margin-left:6px}
+</style>
+</head>
+<body>
+<div class="top"><div style="display:flex;align-items:center;gap:12px"><img src="/img/logo-white.png" alt="MIA Auto Rental"><span class="t">Panel de métricas</span></div><button id="logout" style="display:none">Salir</button></div>
+
+<div class="wrap">
+  <div class="gate" id="gate">
+    <h1>Acceso privado</h1>
+    <p>Escribe la clave para ver las estadísticas de miaautorental.com.</p>
+    <input id="key" type="password" inputmode="numeric" autocomplete="current-password" placeholder="••••">
+    <button id="go">Entrar</button>
+    <div class="err" id="err">Clave incorrecta.</div>
+  </div>
+
+  <div id="app" style="display:none">
+    <div class="toolbar">
+      <button data-preset="today">Hoy</button>
+      <button data-preset="yesterday">Ayer</button>
+      <button data-preset="7">7 días</button>
+      <button data-preset="30" aria-pressed="true">30 días</button>
+      <button data-preset="month">Este mes</button>
+      <button data-preset="lastmonth">Mes pasado</button>
+      <button data-preset="all">Todo</button>
+      <span class="sep"></span>
+      <input type="date" id="from"> <span style="color:var(--ink-2)">→</span> <input type="date" id="to">
+      <button id="apply">Aplicar</button>
+      <select id="group"><option value="day">Por día</option><option value="week">Por semana</option><option value="month">Por mes</option></select>
+    </div>
+    <div class="range" id="range"></div>
+
+    <div class="kpis">
+      <div class="kpi" style="--c:var(--pv)"><div class="lab">Visitas</div><div class="num" id="k-pv">–</div><div class="sub">páginas vistas</div></div>
+      <div class="kpi" style="--c:var(--uv)"><div class="lab">Visitantes</div><div class="num" id="k-uv">–</div><div class="sub">personas distintas</div></div>
+      <div class="kpi" style="--c:var(--wa)"><div class="lab">WhatsApp</div><div class="num" id="k-wa">–</div><div class="sub">clics al botón</div></div>
+      <div class="kpi" style="--c:var(--call)"><div class="lab">Llamadas</div><div class="num" id="k-call">–</div><div class="sub">clics en “Llamar”</div></div>
+      <div class="kpi" style="--c:var(--form)"><div class="lab">Formularios</div><div class="num" id="k-form">–</div><div class="sub">solicitudes enviadas</div></div>
+      <div class="kpi" style="--c:var(--accent)"><div class="lab">Conversión</div><div class="num" id="k-rate">–</div><div class="sub" id="k-rate-sub">visitantes que hicieron contacto</div></div>
+    </div>
+
+    <div class="card">
+      <h2>Visitas y contactos <small id="group-label">por día</small></h2>
+      <div class="chart"><canvas id="c-main"></canvas></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h2>De dónde llegan <small>según la visita</small></h2>
+        <table id="t-src"><thead><tr><th>Fuente</th><th class="n">Visitas</th><th class="n">%</th></tr></thead><tbody></tbody></table>
+      </div>
+      <div class="card">
+        <h2>Dispositivo e idioma</h2>
+        <table id="t-dev"><thead><tr><th>Tipo</th><th class="n">Visitas</th><th class="n">%</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Hora del día <small>hora de Miami</small></h2>
+      <div class="chart small"><canvas id="c-hours"></canvas></div>
+    </div>
+
+    <div class="card">
+      <h2>Detalle por fecha</h2>
+      <table id="t-days"><thead><tr><th>Fecha</th><th class="n">Visitas</th><th class="n">Visitantes</th><th class="n">WhatsApp</th><th class="n">Llamadas</th><th class="n">Formularios</th><th class="n">Contactos</th></tr></thead><tbody></tbody></table>
+    </div>
+
+    <p class="note">Los datos se cuentan desde que el panel se activó (no incluye visitas anteriores). “Visitantes” se calcula por navegador: la misma persona en dos teléfonos cuenta dos veces. Tu propio navegador deja de contarse automáticamente después de abrir este panel. Las llamadas que entran directamente por los anuncios de Google (sin pasar por la página) no aparecen aquí; esas están en el reporte diario de Google Ads.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  try{ localStorage.setItem("mia_noa","1"); }catch(e){}
+  var $=function(id){return document.getElementById(id);};
+  var KEY=null; try{ KEY=sessionStorage.getItem("mia_key"); }catch(e){}
+  var TZ="America/New_York";
+  function todayStr(){ return new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date()); }
+  function addDays(s,n){ var p=s.split("-").map(Number); var d=new Date(Date.UTC(p[0],p[1]-1,p[2]+n)); return d.toISOString().slice(0,10); }
+  function fmtDay(s){ var p=s.split("-"); return p[2]+"/"+p[1]+"/"+p[0]; }
+  var MESES=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+  function label(s){ var p=s.split("-").map(Number); return p[2]+" "+MESES[p[1]-1]; }
+  var DATA=null, cMain=null, cHours=null;
+
+  function gate(ok){ $("gate").style.display=ok?"none":"block"; $("app").style.display=ok?"block":"none"; $("logout").style.display=ok?"inline-block":"none"; }
+  $("go").addEventListener("click",tryKey); $("key").addEventListener("keydown",function(e){ if(e.key==="Enter") tryKey(); });
+  $("logout").addEventListener("click",function(){ try{sessionStorage.removeItem("mia_key");}catch(e){} KEY=null; gate(false); });
+  function tryKey(){ var k=$("key").value.trim(); if(!k) return; $("err").style.display="none"; KEY=k; load().then(function(ok){ if(ok){ try{sessionStorage.setItem("mia_key",k);}catch(e){} gate(true); } else { KEY=null; $("err").style.display="block"; } }); }
+
+  var from=addDays(todayStr(),-29), to=todayStr();
+  function setRange(f,t){ from=f; to=t; $("from").value=f; $("to").value=t; }
+  document.querySelectorAll("[data-preset]").forEach(function(b){ b.addEventListener("click",function(){
+    document.querySelectorAll("[data-preset]").forEach(function(x){x.setAttribute("aria-pressed","false");}); b.setAttribute("aria-pressed","true");
+    var p=b.getAttribute("data-preset"), t=todayStr();
+    if(p==="today") setRange(t,t); else if(p==="yesterday") setRange(addDays(t,-1),addDays(t,-1));
+    else if(p==="7") setRange(addDays(t,-6),t); else if(p==="30") setRange(addDays(t,-29),t);
+    else if(p==="month") setRange(t.slice(0,8)+"01",t);
+    else if(p==="lastmonth"){ var first=t.slice(0,8)+"01"; var lastPrev=addDays(first,-1); setRange(lastPrev.slice(0,8)+"01",lastPrev); }
+    else if(p==="all"){ setRange((DATA&&DATA.firstDay)||"2026-10-01",t); }
+    load().then(function(ok){ if(ok) render(); });
+  });});
+  $("apply").addEventListener("click",function(){ document.querySelectorAll("[data-preset]").forEach(function(x){x.setAttribute("aria-pressed","false");}); if($("from").value&&$("to").value){ setRange($("from").value,$("to").value); load().then(function(ok){ if(ok) render(); }); } });
+  $("group").addEventListener("change",render);
+
+  function load(){
+    $("app").classList.add("spin");
+    return fetch("/api/stats?from="+from+"&to="+to,{headers:{"x-key":KEY},cache:"no-store"}).then(function(r){ if(r.status===401) return null; return r.json(); }).then(function(j){ $("app").classList.remove("spin"); if(!j||j.error) return false; DATA=j; render(); return true; }).catch(function(e){ console.error("panel:",e&&e.stack||e); $("app").classList.remove("spin"); return false; });
+  }
+
+  function groupRows(rows,mode){
+    if(mode==="day"){
+      // fill missing days with zeros
+      var out=[], map={}; rows.forEach(function(r){map[r.day]=r;});
+      for(var d=from; d<=to; d=addDays(d,1)){ out.push(map[d]||{day:d,pv:0,uv:0,wa:0,call:0,form:0}); if(out.length>400) break; }
+      return out.map(function(r){ return Object.assign({label:label(r.day)},r); });
+    }
+    var g={}, order=[];
+    rows.forEach(function(r){
+      var k;
+      if(mode==="month"){ k=r.day.slice(0,7); }
+      else { var p=r.day.split("-").map(Number); var d=new Date(Date.UTC(p[0],p[1]-1,p[2])); var wd=(d.getUTCDay()+6)%7; d.setUTCDate(d.getUTCDate()-wd); k=d.toISOString().slice(0,10); }
+      if(!g[k]){ g[k]={day:k,pv:0,uv:0,wa:0,call:0,form:0}; order.push(k); }
+      g[k].pv+=r.pv; g[k].uv+=r.uv; g[k].wa+=r.wa; g[k].call+=r.call; g[k].form+=r.form;
+    });
+    return order.sort().map(function(k){ var r=g[k]; r.label = mode==="month" ? (MESES[parseInt(k.slice(5,7),10)-1]+" "+k.slice(0,4)) : ("sem. "+label(k)); return r; });
+  }
+
+  function pct(a,b){ return b? (Math.round(a/b*1000)/10)+"%" : "0%"; }
+  function render(){
+    if(!DATA) return;
+    var T=DATA.totals;
+    $("range").textContent = (from===to? fmtDay(from) : fmtDay(from)+" → "+fmtDay(to)) + (DATA.firstDay? "  ·  datos desde "+fmtDay(DATA.firstDay) : "");
+    $("k-pv").textContent=T.pv; $("k-uv").textContent=T.uv; $("k-wa").textContent=T.wa; $("k-call").textContent=T.call; $("k-form").textContent=T.form;
+    $("k-rate").textContent=pct(T.ctaUsers,T.uv); $("k-rate-sub").textContent=T.ctaUsers+" de "+T.uv+" visitantes hicieron contacto";
+    var mode=$("group").value; $("group-label").textContent = mode==="day"?"por día":mode==="week"?"por semana":"por mes";
+    var rows=groupRows(DATA.days,mode);
+    var labels=rows.map(function(r){return r.label;});
+    var ds=[
+      {type:"line",label:"Visitas",data:rows.map(function(r){return r.pv;}),borderColor:"#1b1f26",backgroundColor:"rgba(27,31,38,.08)",fill:true,tension:.3,pointRadius:rows.length>60?0:3,yAxisID:"y"},
+      {type:"line",label:"Visitantes",data:rows.map(function(r){return r.uv;}),borderColor:"#8a94a6",borderDash:[4,4],tension:.3,pointRadius:0,yAxisID:"y"},
+      {type:"bar",label:"WhatsApp",data:rows.map(function(r){return r.wa;}),backgroundColor:"#1f9d55",stack:"cta",yAxisID:"y2"},
+      {type:"bar",label:"Llamadas",data:rows.map(function(r){return r.call;}),backgroundColor:"#e8601c",stack:"cta",yAxisID:"y2"},
+      {type:"bar",label:"Formularios",data:rows.map(function(r){return r.form;}),backgroundColor:"#3b5bdb",stack:"cta",yAxisID:"y2"}
+    ];
+    if(cMain) cMain.destroy();
+    if(window.Chart) cMain=new Chart($("c-main"),{data:{labels:labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+      scales:{y:{beginAtZero:true,position:"left",title:{display:true,text:"Visitas"},ticks:{precision:0}},y2:{beginAtZero:true,position:"right",stacked:true,grid:{drawOnChartArea:false},title:{display:true,text:"Contactos"},ticks:{precision:0}},x:{stacked:true}},
+      plugins:{legend:{position:"bottom"}}}});
+    // sources
+    var names={ads:"Google Ads (anuncios)",google:"Google (búsqueda)",bing:"Bing",search:"Otros buscadores",facebook:"Facebook",instagram:"Instagram",whatsapp:"WhatsApp",tiktok:"TikTok",ai:"Asistentes de IA",direct:"Directo / link",other:"Otros sitios"};
+    var srcRows=Object.keys(DATA.src).map(function(k){return [names[k]||k,DATA.src[k]];}).sort(function(a,b){return b[1]-a[1];});
+    fillTable("t-src",srcRows,T.pv);
+    var dv=DATA.dev, lg=DATA.lang;
+    fillTable("t-dev",[["Teléfono",dv.m||0],["Computadora / tablet",dv.d||0],["Idioma: español",lg.es||0],["Idioma: inglés",lg.en||0]],T.pv);
+    if(cHours) cHours.destroy();
+    if(window.Chart) cHours=new Chart($("c-hours"),{type:"bar",data:{labels:DATA.hours.map(function(_,h){return (h%12||12)+(h<12?" am":" pm");}),datasets:[{label:"Visitas",data:DATA.hours,backgroundColor:"#e8601c"}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{precision:0}}}}});
+    var tb=$("t-days").querySelector("tbody"); tb.innerHTML="";
+    var dayRows=groupRows(DATA.days,"day").filter(function(r){return r.pv||r.wa||r.call||r.form;}).reverse();
+    if(!dayRows.length){ tb.innerHTML='<tr><td colspan="7" class="empty">Todavía no hay visitas en este rango.</td></tr>'; }
+    dayRows.forEach(function(r){ var tr=document.createElement("tr"); tr.innerHTML="<td>"+fmtDay(r.day)+"</td><td class=n>"+r.pv+"</td><td class=n>"+r.uv+"</td><td class=n>"+r.wa+"</td><td class=n>"+r.call+"</td><td class=n>"+r.form+"</td><td class=n>"+pct(r.wa+r.call+r.form,r.uv)+"</td>"; tb.appendChild(tr); });
+  }
+  function fillTable(id,rows,total){
+    var tb=$(id).querySelector("tbody"); tb.innerHTML="";
+    if(!rows.length||!total){ tb.innerHTML='<tr><td colspan="3" class="empty">Sin datos en este rango.</td></tr>'; return; }
+    var max=Math.max.apply(null,rows.map(function(r){return r[1];}))||1;
+    rows.forEach(function(r){ var tr=document.createElement("tr"); tr.innerHTML="<td><span class=bar style='width:"+Math.round(r[1]/max*80)+"px'></span>"+r[0]+"</td><td class=n>"+r[1]+"</td><td class=n>"+pct(r[1],total)+"</td>"; tb.appendChild(tr); });
+  }
+
+  setRange(from,to);
+  if(KEY){ load().then(function(ok){ gate(!!ok); if(!ok) KEY=null; }); } else { gate(false); }
+})();
+</script>
+</body>
+</html>

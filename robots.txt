@@ -26,3 +26,7 @@ User-agent: meta-externalagent
 Allow: /
 
 Sitemap: https://miaautorental.com/sitemap.xml
+
+User-agent: *
+Disallow: /panel/
+Disallow: /api/
