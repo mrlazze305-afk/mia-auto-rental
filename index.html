@@ -84,7 +84,7 @@ img{max-width:100%;display:block}
 .price small{display:block;font-family:var(--body);font-weight:500;text-transform:none;letter-spacing:0;color:#cfd3da;font-size:15px}
 .hero-ctas{display:flex;flex-wrap:wrap;gap:10px}
 .incl{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:15px;color:#cfd3da}
-.incl span::before{content:"✓";color:#ff7a3d;font-weight:700;margin-right:6px}
+.incl > span::before{content:"✓";color:#ff7a3d;font-weight:700;margin-right:6px}
 .paths{display:grid;gap:12px}
 .path{display:block;background:rgba(35,40,51,.78);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:18px;text-decoration:none;color:inherit;transition:transform .15s,border-color .15s}
 .path:hover{border-color:#ff7a3d;transform:translateY(-3px)}
@@ -171,20 +171,20 @@ section{padding-block:56px}
 @media (min-width:760px){.calc{grid-template-columns:1.1fr .9fr;align-items:center}.calc h3{grid-column:1/-1}.calc .note{grid-column:1/-1}}
 
 /* lead form */
-.lead{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.lead form{display:grid;gap:14px;max-width:720px}
-.lead .f2{display:grid;gap:14px}
-@media (min-width:640px){.lead .f2{grid-template-columns:1fr 1fr}}
-.lead label{display:grid;gap:6px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2)}
-.lead input,.lead select,.lead textarea{font:inherit;font-size:16px;padding:12px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%;min-width:0}
-.lead input:focus,.lead select:focus,.lead textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
-.lead textarea{min-height:90px;resize:vertical}
-.lead .req{color:var(--accent)}
-.lead .btn{width:100%}
-@media (min-width:640px){.lead .btn{width:auto;justify-self:start}}
-.lead .note{font-size:13px;color:var(--ink-2)}
-.lead .ok{display:none;background:var(--accent-soft);color:var(--ink);border-left:4px solid var(--accent);padding:14px 16px;border-radius:8px}
-.lead .ok a{font-weight:700}
+.leadform{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.leadform form{display:grid;gap:14px;max-width:720px}
+.leadform .f2{display:grid;gap:14px}
+@media (min-width:640px){.leadform .f2{grid-template-columns:1fr 1fr}}
+.leadform label{display:grid;gap:6px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2)}
+.leadform input,.leadform select,.leadform textarea{font:inherit;font-size:16px;padding:12px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%;min-width:0}
+.leadform input:focus,.leadform select:focus,.leadform textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.leadform textarea{min-height:90px;resize:vertical}
+.leadform .req{color:var(--accent)}
+.leadform .btn{width:100%}
+@media (min-width:640px){.leadform .btn{width:auto;justify-self:start}}
+.leadform .note{font-size:13px;color:var(--ink-2)}
+.leadform .ok{display:none;background:var(--accent-soft);color:var(--ink);border-left:4px solid var(--accent);padding:14px 16px;border-radius:8px}
+.leadform .ok a{font-weight:700}
 .hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
 
 /* steps (a real sequence) */
@@ -490,7 +490,7 @@ footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
   </div>
 </section>
 
-<section class="lead" id="solicitar">
+<section class="leadform" id="solicitar">
   <div class="wrap">
     <div class="sec-head rv">
       <p class="eyebrow"><span lang="es">Solicita tu carro</span><span lang="en">Request your car</span></p>
