@@ -217,10 +217,21 @@ footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
 </head>
 <body>
 
-<!-- Google Ads tag: se activa al publicar en miaautorent.com (reemplazar AW-XXXXXXXXXX y las etiquetas) -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10798454699"></script>
 <script>
-  window.MIA_ADS={id:"AW-XXXXXXXXXX",callLabel:"CALL_LABEL",waLabel:"WA_LABEL"};
-  function miaTrack(kind){try{if(window.gtag&&window.MIA_ADS.id.indexOf("X")<0){gtag("event","conversion",{send_to:window.MIA_ADS.id+"/"+(kind==="call"?window.MIA_ADS.callLabel:window.MIA_ADS.waLabel)});}}catch(e){}}
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-10798454699');
+  // Llamadas desde el sitio web: Google reemplaza el número por uno de desvío y cuenta la llamada
+  gtag('config', 'AW-10798454699/G6SpCOzFsaEdEKuvjZ0o', { 'phone_conversion_number': '786-973-5856' });
+  // Clic en WhatsApp
+  function miaTrack(kind){
+    try{
+      if(kind==='wa'){ gtag('event','conversion',{ 'send_to':'AW-10798454699/3ZTSCO_FsaEdEKuvjZ0o' }); }
+    }catch(e){}
+  }
 </script>
 
 <header class="top">
