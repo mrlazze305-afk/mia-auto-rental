@@ -209,6 +209,10 @@ section{padding-block:56px}
 .pm li{display:flex;align-items:center;gap:12px;background:var(--dark-2);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);padding:14px 14px;min-width:0}
 .pm-ico{flex:none;width:42px;height:42px;border-radius:10px;background:var(--accent);color:#fff;display:grid;place-items:center}
 .pm-ico svg{width:24px;height:24px}
+.pm-logo{flex:none;width:64px;height:42px;border-radius:8px;background:#fff;display:grid;place-items:center;overflow:hidden}
+.pm-logo img{width:100%;height:100%;object-fit:contain;padding:4px;display:block}
+.pm-logo-sq{width:42px;background:transparent}
+.pm-logo-sq img{padding:0;border-radius:10px}
 .pm-name{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.02em;line-height:1.05;min-width:0}
 .pm-name small{display:block;font-family:var(--body);font-weight:500;font-size:12px;color:var(--dark-muted);margin-top:3px;letter-spacing:0}
 
@@ -559,8 +563,8 @@ footer{padding-block:28px;color:var(--ink-2);font-size:14px;text-align:center}
       <li><span class="pm-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg></span><span class="pm-name"><span lang="es">Débito</span><span lang="en">Debit</span></span></li>
       <li><span class="pm-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg></span><span class="pm-name"><span lang="es">Crédito</span><span lang="en">Credit</span></span></li>
       <li><span class="pm-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/><path d="M19.5 8.5a5 5 0 0 1 0 7M21.8 6a8.5 8.5 0 0 1 0 12"/></svg></span><span class="pm-name"><span lang="es">Apple Pay</span><span lang="en">Apple Pay</span></span></li>
-      <li><span class="pm-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M12 7v10M9.5 9.5h3.75a1.75 1.75 0 0 1 0 3.5h-2.5a1.75 1.75 0 0 0 0 3.5H14.5"/></svg></span><span class="pm-name"><span lang="es">Cash App</span><span lang="en">Cash App</span></span></li>
-      <li><span class="pm-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h7l-6 6h8"/><path d="M14 6l7 6-7 6"/></svg></span><span class="pm-name"><span lang="es">Zelle</span><span lang="en">Zelle</span></span></li>
+      <li><span class="pm-logo pm-logo-sq"><img src="img/pay-cashapp.png" alt="Cash App" width="256" height="256" loading="lazy"></span><span class="pm-name"><span lang="es">Cash App</span><span lang="en">Cash App</span></span></li>
+      <li><span class="pm-logo"><img src="img/pay-zelle.png" alt="Zelle" width="480" height="230" loading="lazy"></span><span class="pm-name"><span lang="es">Zelle</span><span lang="en">Zelle</span></span></li>
     </ul>
   </div>
 </section>
