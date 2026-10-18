@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://miaautorental.com/</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image><image:loc>https://miaautorental.com/img/eco.jpg</image:loc><image:title>Sedán económico en renta semanal · MIA Auto Rental Miami</image:title></image:image>
+    <image:image><image:loc>https://miaautorental.com/img/full.jpg</image:loc><image:title>Sedán full size en renta semanal · Miami</image:title></image:image>
+    <image:image><image:loc>https://miaautorental.com/img/equinox.jpg</image:loc><image:title>SUV Chevrolet Equinox en renta · Miami</image:title></image:image>
+    <image:image><image:loc>https://miaautorental.com/img/bmw.jpg</image:loc><image:title>BMW 328i en renta semanal · Miami</image:title></image:image>
+    <image:image><image:loc>https://miaautorental.com/img/xl.jpg</image:loc><image:title>SUV XL 7 pasajeros en renta · Miami</image:title></image:image>
+    <image:image><image:loc>https://miaautorental.com/img/prem.jpg</image:loc><image:title>Porsche Cayenne en renta semanal · Miami</image:title></image:image>
+  </url>
+</urlset>
