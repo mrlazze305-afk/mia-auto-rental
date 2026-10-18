@@ -43,6 +43,8 @@ img{max-width:100%;display:block}
 .btn-accent{background:var(--accent);color:var(--accent-ink)}
 .btn-wa{background:var(--wa);color:#fff}
 .btn-ghost{background:transparent;color:inherit;border-color:currentColor}
+.btn-light{background:#fff;color:var(--dark);border-color:#fff}
+.btn-light:hover{background:#f3efe8}
 .btn svg{width:20px;height:20px;flex:none}
 
 /* top bar */
@@ -83,6 +85,7 @@ img{max-width:100%;display:block}
 .price .u{font-family:var(--display);font-weight:700;font-size:22px;text-transform:uppercase;letter-spacing:.06em}
 .price small{display:block;font-family:var(--body);font-weight:500;text-transform:none;letter-spacing:0;color:#cfd3da;font-size:15px}
 .hero-ctas{display:flex;flex-wrap:wrap;gap:10px}
+.hero-ctas .btn{font-size:17px;padding:13px 17px;gap:8px}
 .incl{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:15px;color:#cfd3da}
 .incl > span::before{content:"✓";color:#ff7a3d;font-weight:700;margin-right:6px}
 .paths{display:grid;gap:12px}
@@ -235,8 +238,10 @@ details p{margin-top:8px;color:var(--ink-2)}
 footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
 
 /* fixed bottom bar (phones) */
-.bar{position:fixed;left:0;right:0;bottom:0;z-index:9;display:grid;grid-template-columns:1fr 1fr;gap:8px;background:var(--bg-2);border-top:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
-.bar .btn{font-size:17px;padding:12px 10px}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:9;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;background:var(--bg-2);border-top:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.bar .btn{font-size:15px;padding:12px 6px;gap:6px;letter-spacing:.03em}
+.bar .btn svg{width:18px;height:18px}
+.bar .bar-form{background:var(--dark);color:#fff;border-color:var(--dark)}
 @media (min-width:860px){.bar{display:none}body{padding-bottom:0}}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *:not(video):not(.hero .media img){transition:none!important;animation:none!important} .rv.pre{transform:none;opacity:1}}
@@ -328,6 +333,10 @@ footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
         <a class="btn btn-accent" href="tel:+17869735856" onclick="miaTrack('call')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8.1 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7a2 2 0 0 1 1.7 2z"/></svg>
           <span lang="es">Llamar ahora</span><span lang="en">Call now</span>
+        </a>
+        <a class="btn btn-light" href="#solicitar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+          <span lang="es">Solicitar carro</span><span lang="en">Request a car</span>
         </a>
       </div>
     </div>
@@ -592,6 +601,7 @@ footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
         <div class="btns">
           <a class="btn btn-wa" href="https://wa.me/17869735856?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20rentar%20un%20carro" target="_blank" rel="noopener" onclick="miaTrack('wa')"><span lang="es">Escribir por WhatsApp</span><span lang="en">Message on WhatsApp</span></a>
           <a class="btn btn-accent" href="tel:+17869735856" onclick="miaTrack('call')"><span lang="es">Llamar 786-973-5856</span><span lang="en">Call 786-973-5856</span></a>
+          <a class="btn btn-light" href="#solicitar"><span lang="es">Llenar solicitud</span><span lang="en">Fill out a request</span></a>
         </div>
       </div>
       <div>
@@ -613,6 +623,7 @@ footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
 <div class="bar">
   <a class="btn btn-wa" href="https://wa.me/17869735856?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20rentar%20un%20carro" target="_blank" rel="noopener" onclick="miaTrack('wa')">WhatsApp</a>
   <a class="btn btn-accent" href="tel:+17869735856" onclick="miaTrack('call')"><span lang="es">Llamar</span><span lang="en">Call</span></a>
+  <a class="btn btn-light bar-form" href="#solicitar"><span lang="es">Solicitar</span><span lang="en">Request</span></a>
 </div>
 
 <script>
