@@ -183,6 +183,8 @@ section{padding-block:56px}
 .leadform .btn{width:100%}
 @media (min-width:640px){.leadform .btn{width:auto;justify-self:start}}
 .leadform .note{font-size:13px;color:var(--ink-2)}
+.leadform .dur{margin-top:-4px}
+.leadform .dur.on{color:var(--ink);background:var(--accent-soft);border-left:3px solid var(--accent);padding:8px 12px;border-radius:6px;font-size:14px}
 .leadform .ok{display:none;background:var(--accent-soft);color:var(--ink);border-left:4px solid var(--accent);padding:14px 16px;border-radius:8px}
 .leadform .ok a{font-weight:700}
 .hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
@@ -506,14 +508,15 @@ footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
       </div>
       <div class="f2">
         <label for="l-email"><span>Email</span><input id="l-email" name="email" type="email" autocomplete="email"></label>
-        <label for="l-fecha"><span><span lang="es">Fecha en que lo necesitas</span><span lang="en">Date you need it</span> <span class="req">*</span></span><input id="l-fecha" name="fecha" type="date" required></label>
-      </div>
-      <div class="f2">
-        <label for="l-semanas"><span><span lang="es">¿Por cuántas semanas?</span><span lang="en">How many weeks?</span></span>
-          <select id="l-semanas" name="semanas"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="6">6</option><option value="8">8</option><option value="12+">12+</option></select></label>
         <label for="l-carro"><span><span lang="es">Tipo de carro</span><span lang="en">Car type</span></span>
           <select id="l-carro" name="carro"><option>Sedán económico · $330</option><option>Sedán full size · $375</option><option>SUV Equinox · $375</option><option>BMW 328i · $475</option><option>XL SUV Atlas (7) · $575</option><option>Porsche Cayenne · $850</option><option data-es="No estoy seguro" data-en="Not sure">No estoy seguro / Not sure</option></select></label>
       </div>
+      <div class="f2">
+        <label for="l-desde"><span><span lang="es">Desde (fecha de recogida)</span><span lang="en">From (pick-up date)</span> <span class="req">*</span></span><input id="l-desde" name="desde" type="date" required></label>
+        <label for="l-hasta"><span><span lang="es">Hasta (fecha de entrega)</span><span lang="en">To (return date)</span> <span class="req">*</span></span><input id="l-hasta" name="hasta" type="date" required></label>
+      </div>
+      <p class="note dur" id="l-dur" aria-live="polite"><span lang="es">Elige las fechas y te mostramos cuántas semanas son.</span><span lang="en">Pick your dates and we'll show how many weeks that is.</span></p>
+      <input type="hidden" id="l-duracion" name="duracion" value="">
       <div class="f2">
         <label for="l-uso"><span><span lang="es">¿Para qué lo necesitas?</span><span lang="en">What do you need it for?</span></span>
           <select id="l-uso" name="uso"><option value="Trabajo">Trabajo / Work</option><option value="Turismo">Turismo / Travel</option><option value="Familia">Familia / Family</option><option value="Otro">Otro / Other</option></select></label>
@@ -621,6 +624,7 @@ footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
     document.querySelectorAll("[data-set-lang]").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-set-lang")===l));});
     try{localStorage.setItem("mia-lang",l);}catch(e){}
     calc();
+    try{ document.dispatchEvent(new Event("mia:lang")); }catch(e){}
   }
   var saved=null; try{saved=localStorage.getItem("mia-lang");}catch(e){}
   var nav=(navigator.language||"es").toLowerCase();
@@ -694,6 +698,26 @@ footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
   /* lead form: save to Netlify Forms + open WhatsApp with the request */
   var lf=document.getElementById("lead-form");
   if(lf){
+    var dFrom=document.getElementById("l-desde"), dTo=document.getElementById("l-hasta"), dur=document.getElementById("l-dur"), durIn=document.getElementById("l-duracion");
+    function iso(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+    function addDays(d,n){ var x=new Date(d); x.setDate(x.getDate()+n); return x; }
+    function parseISO(v){ if(!v) return null; var p=v.split("-"); return new Date(+p[0],+p[1]-1,+p[2]); }
+    function fmtDate(v){ var d=parseISO(v); if(!d) return v; var L=lang()==="en"; return d.toLocaleDateString(L?"en-US":"es-US",{weekday:"short",day:"numeric",month:"short",year:"numeric"}); }
+    var today=new Date(); today.setHours(0,0,0,0);
+    dFrom.min=iso(today); dTo.min=iso(addDays(today,1));
+    function updDur(){
+      var a=parseISO(dFrom.value), b=parseISO(dTo.value); var L=lang()==="en";
+      if(a){ dTo.min=iso(addDays(a,1)); if(b && b<=a){ dTo.value=iso(addDays(a,7)); b=parseISO(dTo.value); } }
+      if(!a||!b){ durIn.value=""; dur.innerHTML=L?"Pick your dates and we'll show how many weeks that is.":"Elige las fechas y te mostramos cuántas semanas son."; dur.classList.remove("on"); return; }
+      var days=Math.round((b-a)/86400000), wk=Math.floor(days/7), rem=days%7;
+      var es=(wk?wk+(wk===1?" semana":" semanas"):"")+(wk&&rem?" y ":"")+(rem?rem+(rem===1?" día":" días"):"")+" ("+days+" días)";
+      var en=(wk?wk+(wk===1?" week":" weeks"):"")+(wk&&rem?" and ":"")+(rem?rem+(rem===1?" day":" days"):"")+" ("+days+" days)";
+      durIn.value=es+" / "+en;
+      dur.innerHTML=(L?"<b>Duration:</b> "+en:"<b>Duración:</b> "+es)+(days<7?(L?" · minimum rental is 1 week":" · la renta mínima es 1 semana"):"");
+      dur.classList.add("on");
+    }
+    dFrom.addEventListener("change",updDur); dTo.addEventListener("change",updDur);
+    document.addEventListener("mia:lang",updDur);
     lf.addEventListener("submit",function(ev){
       ev.preventDefault();
       var g=function(id){var e=document.getElementById(id);return e?e.value.trim():"";};
@@ -702,8 +726,9 @@ footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
         (L?"Name: ":"Nombre: ")+g("l-nombre"),
         (L?"Phone: ":"Teléfono: ")+g("l-tel"),
         g("l-email")?("Email: "+g("l-email")):null,
-        (L?"Start date: ":"Fecha de inicio: ")+g("l-fecha"),
-        (L?"Weeks: ":"Semanas: ")+g("l-semanas"),
+        (L?"From: ":"Desde: ")+fmtDate(g("l-desde")),
+        (L?"To: ":"Hasta: ")+fmtDate(g("l-hasta")),
+        (L?"Duration: ":"Duración: ")+g("l-duracion"),
         (L?"Car: ":"Carro: ")+g("l-carro"),
         (L?"Use: ":"Uso: ")+g("l-uso"),
         (L?"Valid license: ":"Licencia vigente: ")+g("l-lic"),
