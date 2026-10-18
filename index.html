@@ -170,6 +170,23 @@ section{padding-block:56px}
 .calc .note{font-size:13px;color:var(--dark-muted)}
 @media (min-width:760px){.calc{grid-template-columns:1.1fr .9fr;align-items:center}.calc h3{grid-column:1/-1}.calc .note{grid-column:1/-1}}
 
+/* lead form */
+.lead{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.lead form{display:grid;gap:14px;max-width:720px}
+.lead .f2{display:grid;gap:14px}
+@media (min-width:640px){.lead .f2{grid-template-columns:1fr 1fr}}
+.lead label{display:grid;gap:6px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2)}
+.lead input,.lead select,.lead textarea{font:inherit;font-size:16px;padding:12px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%;min-width:0}
+.lead input:focus,.lead select:focus,.lead textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.lead textarea{min-height:90px;resize:vertical}
+.lead .req{color:var(--accent)}
+.lead .btn{width:100%}
+@media (min-width:640px){.lead .btn{width:auto;justify-self:start}}
+.lead .note{font-size:13px;color:var(--ink-2)}
+.lead .ok{display:none;background:var(--accent-soft);color:var(--ink);border-left:4px solid var(--accent);padding:14px 16px;border-radius:8px}
+.lead .ok a{font-weight:700}
+.hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
+
 /* steps (a real sequence) */
 .steps{counter-reset:s;display:grid;gap:14px}
 .step{display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:start;min-width:0}
@@ -252,6 +269,7 @@ footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
       <a href="#drivers"><span lang="es">Para trabajar</span><span lang="en">For work</span></a>
       <a href="#fleet"><span lang="es">Flota</span><span lang="en">Fleet</span></a>
       <a href="#how"><span lang="es">Cómo funciona</span><span lang="en">How it works</span></a>
+      <a href="#solicitar"><span lang="es">Solicitar</span><span lang="en">Request</span></a>
       <a href="#faq"><span lang="es">Preguntas</span><span lang="en">FAQ</span></a>
       <a href="#contact"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
     </nav>
@@ -472,6 +490,47 @@ footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
   </div>
 </section>
 
+<section class="lead" id="solicitar">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow"><span lang="es">Solicita tu carro</span><span lang="en">Request your car</span></p>
+      <h2><span lang="es">Déjanos tus datos y te confirmamos por WhatsApp</span><span lang="en">Leave your details and we confirm on WhatsApp</span></h2>
+      <p><span lang="es">Toma 1 minuto. Al enviar se abre WhatsApp con tu solicitud lista para mandarnos; te respondemos con disponibilidad y precio.</span><span lang="en">Takes 1 minute. When you submit, WhatsApp opens with your request ready to send; we reply with availability and price.</span></p>
+    </div>
+    <form id="lead-form" name="solicitud" method="POST" data-netlify="true" netlify-honeypot="empresa" action="/">
+      <input type="hidden" name="form-name" value="solicitud">
+      <p class="hp"><label>Empresa <input name="empresa" tabindex="-1" autocomplete="off"></label></p>
+      <div class="f2">
+        <label for="l-nombre"><span><span lang="es">Nombre completo</span><span lang="en">Full name</span> <span class="req">*</span></span><input id="l-nombre" name="nombre" type="text" required autocomplete="name"></label>
+        <label for="l-tel"><span><span lang="es">Teléfono / WhatsApp</span><span lang="en">Phone / WhatsApp</span> <span class="req">*</span></span><input id="l-tel" name="telefono" type="tel" required autocomplete="tel" inputmode="tel" placeholder="(786) 000-0000"></label>
+      </div>
+      <div class="f2">
+        <label for="l-email"><span>Email</span><input id="l-email" name="email" type="email" autocomplete="email"></label>
+        <label for="l-fecha"><span><span lang="es">Fecha en que lo necesitas</span><span lang="en">Date you need it</span> <span class="req">*</span></span><input id="l-fecha" name="fecha" type="date" required></label>
+      </div>
+      <div class="f2">
+        <label for="l-semanas"><span><span lang="es">¿Por cuántas semanas?</span><span lang="en">How many weeks?</span></span>
+          <select id="l-semanas" name="semanas"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="6">6</option><option value="8">8</option><option value="12+">12+</option></select></label>
+        <label for="l-carro"><span><span lang="es">Tipo de carro</span><span lang="en">Car type</span></span>
+          <select id="l-carro" name="carro"><option>Sedán económico · $330</option><option>Sedán full size · $375</option><option>SUV Equinox · $375</option><option>BMW 328i · $475</option><option>XL SUV Atlas (7) · $575</option><option>Porsche Cayenne · $850</option><option data-es="No estoy seguro" data-en="Not sure">No estoy seguro / Not sure</option></select></label>
+      </div>
+      <div class="f2">
+        <label for="l-uso"><span><span lang="es">¿Para qué lo necesitas?</span><span lang="en">What do you need it for?</span></span>
+          <select id="l-uso" name="uso"><option value="Trabajo">Trabajo / Work</option><option value="Turismo">Turismo / Travel</option><option value="Familia">Familia / Family</option><option value="Otro">Otro / Other</option></select></label>
+        <label for="l-lic"><span><span lang="es">Licencia de conducir vigente</span><span lang="en">Valid driver's license</span></span>
+          <select id="l-lic" name="licencia"><option value="Sí">Sí / Yes</option><option value="No">No</option></select></label>
+      </div>
+      <label for="l-msg"><span><span lang="es">Comentarios (opcional)</span><span lang="en">Comments (optional)</span></span><textarea id="l-msg" name="comentarios"></textarea></label>
+      <button class="btn btn-wa" type="submit" id="lead-submit">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 3.9A11 11 0 0 0 2.6 17.2L1 23l5.9-1.5A11 11 0 0 0 20 3.9zm-8 17.3a9.1 9.1 0 0 1-4.7-1.3l-.3-.2-3.5.9.9-3.4-.2-.4A9.1 9.1 0 1 1 12 21.2zm5-6.8c-.3-.1-1.6-.8-1.9-.9s-.4-.1-.6.1-.7.9-.9 1.1-.3.2-.6.1a7.4 7.4 0 0 1-3.7-3.2c-.3-.5.3-.4.8-1.5.1-.2 0-.4 0-.5l-.8-2c-.2-.5-.5-.5-.6-.5h-.5a1 1 0 0 0-.8.4 3.2 3.2 0 0 0-1 2.4 5.6 5.6 0 0 0 1.2 3 12.7 12.7 0 0 0 4.9 4.3c1.8.8 2.5.8 3.4.7a2.9 2.9 0 0 0 1.9-1.3 2.4 2.4 0 0 0 .2-1.3c-.1-.2-.3-.3-.6-.4z"/></svg>
+        <span lang="es">Enviar solicitud por WhatsApp</span><span lang="en">Send request on WhatsApp</span>
+      </button>
+      <p class="note"><span lang="es">Sin compromiso. Tus datos solo se usan para responder tu solicitud.</span><span lang="en">No commitment. Your details are only used to answer your request.</span></p>
+      <div class="ok" id="lead-ok"><span lang="es">Recibimos tu solicitud. Si WhatsApp no se abrió, </span><span lang="en">We received your request. If WhatsApp didn't open, </span><a id="lead-wa-link" href="#" target="_blank" rel="noopener"><span lang="es">toca aquí para enviarla</span><span lang="en">tap here to send it</span></a>.</div>
+    </form>
+  </div>
+</section>
+
 <section id="reviews" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head rv">
@@ -626,6 +685,36 @@ footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
     els.forEach(function(el){ var r=el.getBoundingClientRect(); if(r.top>innerHeight) el.classList.add("pre"); });
     var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.remove("pre");io.unobserve(x.target);}});},{rootMargin:"0px 0px -8% 0px"});
     els.forEach(function(el){io.observe(el);});
+  }
+
+  /* lead form: save to Netlify Forms + open WhatsApp with the request */
+  var lf=document.getElementById("lead-form");
+  if(lf){
+    lf.addEventListener("submit",function(ev){
+      ev.preventDefault();
+      var g=function(id){var e=document.getElementById(id);return e?e.value.trim():"";};
+      var L=lang()==="en";
+      var lines=[L?"Hi, I want to request a car:":"Hola, quiero solicitar un carro:",
+        (L?"Name: ":"Nombre: ")+g("l-nombre"),
+        (L?"Phone: ":"Teléfono: ")+g("l-tel"),
+        g("l-email")?("Email: "+g("l-email")):null,
+        (L?"Start date: ":"Fecha de inicio: ")+g("l-fecha"),
+        (L?"Weeks: ":"Semanas: ")+g("l-semanas"),
+        (L?"Car: ":"Carro: ")+g("l-carro"),
+        (L?"Use: ":"Uso: ")+g("l-uso"),
+        (L?"Valid license: ":"Licencia vigente: ")+g("l-lic"),
+        g("l-msg")?((L?"Comments: ":"Comentarios: ")+g("l-msg")):null].filter(Boolean);
+      var wa="https://wa.me/17869735856?text="+encodeURIComponent(lines.join("\n"));
+      var btn=document.getElementById("lead-submit"); btn.disabled=true;
+      var data=new URLSearchParams(new FormData(lf)).toString();
+      var done=function(){
+        try{ miaTrack("wa"); }catch(e){}
+        var ok=document.getElementById("lead-ok"); ok.style.display="block"; document.getElementById("lead-wa-link").href=wa;
+        var w=window.open(wa,"_blank"); if(!w){ location.href=wa; }
+        btn.disabled=false;
+      };
+      fetch("/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:data}).then(done,done);
+    });
   }
 
   /* copy phone */
