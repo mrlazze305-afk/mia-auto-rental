@@ -520,6 +520,10 @@ footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
         <label for="l-lic"><span><span lang="es">Licencia de conducir vigente</span><span lang="en">Valid driver's license</span></span>
           <select id="l-lic" name="licencia"><option value="Sí">Sí / Yes</option><option value="No">No</option></select></label>
       </div>
+      <div class="f2">
+        <label for="l-edad"><span><span lang="es">¿Tienes 25 años o más?</span><span lang="en">Are you 25 or older?</span> <span class="req">*</span></span>
+          <select id="l-edad" name="mayor_25" required><option value="" disabled selected>—</option><option value="Sí">Sí / Yes</option><option value="No">No</option></select></label>
+      </div>
       <label for="l-msg"><span><span lang="es">Comentarios (opcional)</span><span lang="en">Comments (optional)</span></span><textarea id="l-msg" name="comentarios"></textarea></label>
       <button class="btn btn-wa" type="submit" id="lead-submit">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 3.9A11 11 0 0 0 2.6 17.2L1 23l5.9-1.5A11 11 0 0 0 20 3.9zm-8 17.3a9.1 9.1 0 0 1-4.7-1.3l-.3-.2-3.5.9.9-3.4-.2-.4A9.1 9.1 0 1 1 12 21.2zm5-6.8c-.3-.1-1.6-.8-1.9-.9s-.4-.1-.6.1-.7.9-.9 1.1-.3.2-.6.1a7.4 7.4 0 0 1-3.7-3.2c-.3-.5.3-.4.8-1.5.1-.2 0-.4 0-.5l-.8-2c-.2-.5-.5-.5-.6-.5h-.5a1 1 0 0 0-.8.4 3.2 3.2 0 0 0-1 2.4 5.6 5.6 0 0 0 1.2 3 12.7 12.7 0 0 0 4.9 4.3c1.8.8 2.5.8 3.4.7a2.9 2.9 0 0 0 1.9-1.3 2.4 2.4 0 0 0 .2-1.3c-.1-.2-.3-.3-.6-.4z"/></svg>
@@ -703,6 +707,7 @@ footer{padding-block:24px;color:var(--ink-2);font-size:14px;text-align:center}
         (L?"Car: ":"Carro: ")+g("l-carro"),
         (L?"Use: ":"Uso: ")+g("l-uso"),
         (L?"Valid license: ":"Licencia vigente: ")+g("l-lic"),
+        (L?"25 or older: ":"Mayor de 25: ")+g("l-edad"),
         g("l-msg")?((L?"Comments: ":"Comentarios: ")+g("l-msg")):null].filter(Boolean);
       var wa="https://wa.me/17869735856?text="+encodeURIComponent(lines.join("\n"));
       var btn=document.getElementById("lead-submit"); btn.disabled=true;
