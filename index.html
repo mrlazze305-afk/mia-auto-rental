@@ -304,7 +304,18 @@ footer{padding-block:28px;color:var(--ink-2);font-size:14px;text-align:center}
   gtag('js', new Date());
   gtag('config', 'AW-10798454699');
   // Llamadas desde el sitio web: Google reemplaza el número por uno de desvío y cuenta la llamada
-  gtag('config', 'AW-10798454699/G6SpCOzFsaEdEKuvjZ0o', { 'phone_conversion_number': '786-973-5856' });
+  // Llamadas desde el sitio web: Google muestra un número de desvío a quien llega desde un anuncio
+  gtag('config', 'AW-10798454699/G6SpCOzFsaEdEKuvjZ0o', {
+    'phone_conversion_number': '786-973-5856',
+    'phone_conversion_callback': function(formatted_number, mobile_number){
+      try{
+        var tel='tel:'+String(mobile_number||'').replace(/[^0-9+]/g,'');
+        document.querySelectorAll('a[href^="tel:"]').forEach(function(a){ a.setAttribute('href', tel); });
+        var w=document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), n;
+        while((n=w.nextNode())){ if(n.nodeValue.indexOf('786-973-5856')!==-1){ n.nodeValue=n.nodeValue.split('786-973-5856').join(formatted_number); } }
+      }catch(e){}
+    }
+  });
   // Métricas propias (panel privado) + conversión de Google Ads
   var miaHit=(function(){
     var noa=false, vid="";
