@@ -1,7 +1,7 @@
 // Devuelve las métricas agregadas para el panel privado. Requiere la clave en el header x-key.
 import { getStore } from "@netlify/blobs";
 
-export const config = { path: "/api/stats", cache: "manual" };
+export const config = { path: "/api/stats" };
 
 const TZ = "America/New_York";
 function fmt(d, opts) { return new Intl.DateTimeFormat("en-CA", { timeZone: TZ, ...opts }).format(d); }
@@ -10,7 +10,7 @@ function hourOf(d) { return parseInt(new Intl.DateTimeFormat("en-US", { timeZone
 
 export default async (req) => {
   const url = new URL(req.url);
-  const expected = (Netlify.env.get("PANEL_KEY") || "2121").trim();
+  const expected = String((globalThis.Netlify && Netlify.env.get("PANEL_KEY")) || process.env.PANEL_KEY || "2121").trim();
   const given = (req.headers.get("x-key") || url.searchParams.get("key") || "").trim();
   if (!given || given !== expected) return new Response(JSON.stringify({ error: "unauthorized" }), { status: 401, headers: { "content-type": "application/json", "cache-control": "no-store" } });
 

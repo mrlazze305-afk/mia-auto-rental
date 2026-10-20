@@ -1,7 +1,7 @@
 // Recibe eventos de la página (visita, clic WhatsApp, llamada, formulario) y los guarda en Netlify Blobs.
 import { getStore } from "@netlify/blobs";
 
-export const config = { path: "/api/hit", cache: "manual" };
+export const config = { path: "/api/hit" };
 
 const TZ = "America/New_York";
 const TYPES = new Set(["pv", "wa", "call", "form"]);
