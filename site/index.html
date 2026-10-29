@@ -79,6 +79,20 @@ img{max-width:100%;display:block}
 .lang button[aria-pressed="true"]{background:var(--dark-fg);color:var(--dark)}
 .top .call{display:none}
 @media (min-width:860px){.nav{display:flex}.top .call{display:inline-flex;padding:9px 14px;font-size:16px}}
+.menu-btn{display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--dark-fg);border:1.5px solid #3a404c;border-radius:999px;padding:7px 11px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.menu-btn svg{width:20px;height:20px}
+.menu-btn .i-close{display:none}
+.menu-btn[aria-expanded="true"] .i-open{display:none}
+.menu-btn[aria-expanded="true"] .i-close{display:block}
+@media (min-width:860px){.menu-btn{display:none}}
+.mobile-menu{display:grid;background:var(--dark-2);border-top:1px solid #2a2f3a;padding:6px 16px 14px}
+.mobile-menu[hidden]{display:none}
+.mobile-menu a{display:grid;gap:2px;padding:13px 4px;border-bottom:1px solid rgba(255,255,255,.08);color:var(--dark-fg);text-decoration:none;font-weight:600;font-size:17px}
+.mobile-menu a strong{color:#ff7a3d;font-family:var(--display);font-size:22px;letter-spacing:.02em;text-transform:uppercase}
+.mobile-menu a small{color:var(--dark-muted);font-weight:500;font-size:13px}
+.mobile-menu a:last-child{border-bottom:0}
+.mobile-menu .mm-call{color:#ff7a3d}
+@media (min-width:860px){.mobile-menu{display:none!important}}
 
 /* hero with motion */
 .hero{position:relative;overflow:hidden;color:#f3efe8;background:#171a20;isolation:isolate}
@@ -351,6 +365,11 @@ footer{padding-block:28px;color:var(--ink-2);font-size:14px;text-align:center}
       <a href="#contact"><span lang="es">Contacto</span><span lang="en">Contact</span></a>
     </nav>
     <div class="top-right">
+      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menú">
+        <svg class="i-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        <span lang="es">Menú</span><span lang="en">Menu</span>
+      </button>
       <div class="lang" role="group" aria-label="Idioma / Language">
         <button type="button" id="lang-es" data-set-lang="es" aria-pressed="true">ES</button>
         <button type="button" id="lang-en" data-set-lang="en" aria-pressed="false">EN</button>
@@ -360,6 +379,16 @@ footer{padding-block:28px;color:var(--ink-2);font-size:14px;text-align:center}
         786-973-5856
       </a>
     </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <a href="#fleet"><strong><span lang="es">Flota y precios</span><span lang="en">Fleet &amp; prices</span></strong><small><span lang="es">Ver los carros disponibles</span><span lang="en">See available cars</span></small></a>
+    <a href="#drivers"><span lang="es">Para trabajar</span><span lang="en">For work</span></a>
+    <a href="#how"><span lang="es">Cómo funciona</span><span lang="en">How it works</span></a>
+    <a href="#pagos"><span lang="es">Formas de pago</span><span lang="en">Payment methods</span></a>
+    <a href="#solicitar"><span lang="es">Solicitar un carro</span><span lang="en">Request a car</span></a>
+    <a href="#faq"><span lang="es">Preguntas frecuentes</span><span lang="en">FAQ</span></a>
+    <a href="#contact"><span lang="es">Contacto y horario</span><span lang="en">Contact &amp; hours</span></a>
+    <a class="mm-call" href="tel:+17869735856" onclick="miaTrack('call')"><span lang="es">Llamar 786-973-5856</span><span lang="en">Call 786-973-5856</span></a>
   </div>
 </header>
 
@@ -746,6 +775,13 @@ footer{padding-block:28px;color:var(--ink-2);font-size:14px;text-align:center}
     try{localStorage.setItem("mia-lang",l);}catch(e){}
     calc();
     try{ document.dispatchEvent(new Event("mia:lang")); }catch(e){}
+  }
+  var mb=document.getElementById("menu-btn"), mm=document.getElementById("mobile-menu");
+  if(mb&&mm){
+    function closeMenu(){ mm.hidden=true; mb.setAttribute("aria-expanded","false"); }
+    mb.addEventListener("click",function(){ var open=mm.hidden; mm.hidden=!open; mb.setAttribute("aria-expanded",String(open)); });
+    mm.querySelectorAll("a").forEach(function(a){ a.addEventListener("click",closeMenu); });
+    document.addEventListener("keydown",function(e){ if(e.key==="Escape") closeMenu(); });
   }
   var saved=null; try{saved=localStorage.getItem("mia-lang");}catch(e){}
   var nav=(navigator.language||"es").toLowerCase();
