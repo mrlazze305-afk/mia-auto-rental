@@ -286,6 +286,16 @@ details p{margin-top:8px;color:var(--ink-2)}
 .hours div span:last-child{font-weight:600}
 .contact .btns{display:grid;gap:10px;margin-top:10px}
 .contact .btns .btn{width:100%}
+.map{margin-top:34px;padding-top:30px;border-top:1px solid rgba(255,255,255,.12);display:grid;gap:18px}
+@media (min-width:860px){.map{grid-template-columns:.9fr 1.1fr;align-items:center}}
+.map-head h3{font-size:clamp(22px,4vw,30px);margin-top:4px;color:#fff}
+.map-head p{margin-top:10px;color:var(--dark-muted);font-size:16px;line-height:1.55}
+.map-head p strong{color:#ff7a3d}
+.map-btns{display:grid;gap:10px;margin-top:16px}
+@media (min-width:520px){.map-btns{grid-template-columns:1fr 1fr}}
+.map-frame{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#232833;aspect-ratio:4/3}
+@media (min-width:860px){.map-frame{aspect-ratio:16/11}}
+.map-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .copy{font:inherit;font-size:13px;background:transparent;border:1px solid #3a4150;color:var(--dark-muted);border-radius:6px;padding:3px 8px;cursor:pointer;margin-left:8px;vertical-align:middle}
 .reel{position:relative;background:#171a20;overflow:hidden;height:clamp(300px,56vw,460px);max-width:100%}
 .reel video{width:100%;height:100%;object-fit:cover;display:block}
@@ -735,7 +745,7 @@ footer{padding-block:28px;color:var(--ink-2);font-size:14px;text-align:center}
     <div class="grid grid-2">
       <div class="cinfo">
         <div class="row"><span class="lab"><span lang="es">Teléfono y WhatsApp</span><span lang="en">Phone & WhatsApp</span></span><span class="val num" id="phone-text">786-973-5856<button class="copy" type="button" data-copy="7869735856"><span lang="es">Copiar</span><span lang="en">Copy</span></button></span></div>
-        <div class="row"><span class="lab"><span lang="es">Dirección</span><span lang="en">Address</span></span><a class="val" href="https://www.google.com/maps/search/3450+NW+36th+St+Miami+FL+33142" target="_blank" rel="noopener">3450 NW 36th St, Miami, FL 33142 ↗</a><span style="color:var(--dark-muted);font-size:14px"><span lang="es">A minutos del aeropuerto MIA</span><span lang="en">Minutes from MIA Airport</span></span></div>
+        <div class="row"><span class="lab"><span lang="es">Dirección</span><span lang="en">Address</span></span><a class="val" href="https://www.google.com/maps/search/3450+NW+36th+St+Miami+FL+33142" target="_blank" rel="noopener">3450 NW 36th St, Miami, FL 33142 ↗</a><span style="color:var(--dark-muted);font-size:14px"><span lang="es">A minutos del aeropuerto MIA · <b style="color:#ff7a3d">Entrada por el lateral del local, por la NW 35th Ave</b> (esquina con NW 36th St)</span><span lang="en">Minutes from MIA Airport · <b style="color:#ff7a3d">Entrance on the side of the building, on NW 35th Ave</b> (corner of NW 36th St)</span></span></div>
         <div class="row"><span class="lab">Email</span><span class="val" style="font-family:var(--body);font-size:17px;user-select:all">miaautorental@gmail.com</span></div>
         <div class="btns">
           <a class="btn btn-wa" href="https://wa.me/17869735856?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20rentar%20un%20carro" target="_blank" rel="noopener" onclick="miaTrack('wa')"><span lang="es">Escribir por WhatsApp</span><span lang="en">Message on WhatsApp</span></a>
@@ -751,6 +761,20 @@ footer{padding-block:28px;color:var(--ink-2);font-size:14px;text-align:center}
           <div><span><span lang="es">Domingo</span><span lang="en">Sunday</span></span><span><span lang="es">Cerrado</span><span lang="en">Closed</span></span></div>
         </div>
         <p style="margin-top:14px;color:var(--dark-muted);font-size:15px"><span lang="es">Por WhatsApp respondemos también fuera de horario.</span><span lang="en">On WhatsApp we also reply outside office hours.</span></p>
+      </div>
+    </div>
+    <div class="map rv">
+      <div class="map-head">
+        <p class="eyebrow" style="color:var(--dark-muted)"><span lang="es">Cómo llegar</span><span lang="en">How to get here</span></p>
+        <h3><span lang="es">3450 NW 36th St, Miami, FL 33142</span><span lang="en">3450 NW 36th St, Miami, FL 33142</span></h3>
+        <p><span lang="es">Estamos en la esquina de la NW 36th St con la NW 35th Ave. <strong>La entrada es por el lateral del local, por la NW 35th Ave.</strong></span><span lang="en">We're at the corner of NW 36th St and NW 35th Ave. <strong>The entrance is on the side of the building, on NW 35th Ave.</strong></span></p>
+        <div class="map-btns">
+          <a class="btn btn-accent" href="https://www.google.com/maps/dir/?api=1&destination=3450+NW+36th+St,+Miami,+FL+33142" target="_blank" rel="noopener"><span lang="es">Ir con Google Maps</span><span lang="en">Google Maps</span></a>
+          <a class="btn btn-ghost" href="https://maps.apple.com/?daddr=3450+NW+36th+St,+Miami,+FL+33142" target="_blank" rel="noopener"><span lang="es">Ir con Apple Maps</span><span lang="en">Apple Maps</span></a>
+        </div>
+      </div>
+      <div class="map-frame">
+        <iframe title="Mapa: MIA Auto Rental, 3450 NW 36th St, Miami" src="https://www.google.com/maps?q=3450+NW+36th+St,+Miami,+FL+33142&z=17&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       </div>
     </div>
   </div>
